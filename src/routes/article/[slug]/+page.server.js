@@ -32,5 +32,26 @@ export const actions = {
 		await api.del(`articles/${params.slug}`, locals.user.token);
 		throw redirect(307, '/');
 	},
+	deleteComment: async ({ locals, params, url }) => {
+		if (!locals.user) throw error(401);
 
+		const id = url.searchParams.get('id');
+		const result = await api.del(`articles/${params.slug}/comments/${id}`, locals.user.token);
+
+		if (result.error) throw error(result.status, result.error);
+	},
+	toggleFavorite: async ({ locals, params, request }) => {
+		if (!locals.user) throw error(401);
+
+		const data = await request.formData();
+		const favorited = data.get('favorited') !== 'on';
+
+		if (favorited) {
+			api.post(`articles/${params.slug}/favorite`, null, locals.user.token);
+		} else {
+			api.del(`articles/${params.slug}/favorite`, locals.user.token);
+		}
+
+		throw redirect(307, request.headers.get('referer') ?? `/article/${params.slug}`);
+	}
 }

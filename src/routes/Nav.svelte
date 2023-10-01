@@ -1,5 +1,6 @@
-<script>
-    import { page } from '$app/stores'
+<script lang="ts">
+    import { page } from '$app/stores';
+    import { base } from '$app/paths';
 </script>
 
 <nav class="navbar navbar-expand-lg navbar-light">
@@ -13,31 +14,31 @@
 
             {#if $page.data.user}
                 <li class="nav-item">
-                    <a href="/editor" class="nav-link" class:active={$page.url.pathname === '/editor'}>
+                    <a href="{base}/editor" class="nav-link" class:active={$page.url.pathname === '/editor'}>
                         <i class="icon-compose" />New Post
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a href="/settings" class="nav-link" class:active={$page.url.pathname === '/settings'}>
+                    <a href="{base}/settings" class="nav-link" class:active={$page.url.pathname === '/settings'}>
                         <i class="icon-compose" />Settings
                     </a>
                 </li>
 
                 <li class="nav-item">
-					<a href="/profile/@{$page.data.user.username}" class="nav-link">
+					<a href="{base}/profile/@{$page.data.user.username}" class="nav-link">
 						{$page.data.user.username}
 					</a>
 				</li>
             {:else}
                 <li class="nav-item">
-                    <a href="/login" class="nav-link" class:active={$page.url.pathname === '/login'}>
+                    <a href="{base}/login" class="nav-link" class:active={$page.url.pathname === '/login'}>
                         <i class="icon-compose" />Sign in
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a href="/register" class="nav-link" class:active={$page.url.pathname === '/register'}>
+                    <a href="{base}/register" class="nav-link" class:active={$page.url.pathname === '/register'}>
                         <i class="icon-compose" />Sign up
                     </a>
                 </li>
