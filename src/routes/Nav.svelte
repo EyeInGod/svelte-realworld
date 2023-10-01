@@ -25,9 +25,10 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="/profile" class="nav-link">
-                    </a>
-                </li>
+					<a href="/profile/@{$page.data.user.username}" class="nav-link">
+						{$page.data.user.username}
+					</a>
+				</li>
             {:else}
                 <li class="nav-item">
                     <a href="/login" class="nav-link" class:active={$page.url.pathname === '/login'}>
