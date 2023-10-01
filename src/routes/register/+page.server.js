@@ -1,6 +1,11 @@
 import * as api from '$lib/api.js';
 import { fail, redirect } from '@sveltejs/kit';
 
+export async function load({ parent }) {
+	const { user } = await parent();
+	if (user) throw redirect(307, '/');
+}
+
 export const actions = {
     default: async ({ cookies, request }) => {
         const data = await request.formData();
