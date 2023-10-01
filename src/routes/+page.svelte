@@ -1,11 +1,14 @@
 <script>
 	import { page } from '$app/stores';
   	import ArticleList from '$lib/ArticleList/index.svelte';
+  	import Pagination from './Pagination.svelte';
 
 	export let data;
 
+	$: p = +($page.url.searchParams.get('page') ?? '1');
 	$: tag = $page.url.searchParams.get('tag');
 	$: tab = $page.url.searchParams.get('tab') ?? 'all';
+	$: page_link_base = tag ? `tag=${tag}` : `tab=${tab}`;
 </script>
 
 <svelte:head>
@@ -36,6 +39,18 @@
 				</div>
 				
 				<ArticleList articles={data.articles} />
+				<Pagination pages={data.pages} {p} href={(p) => `/?${page_link_base}&page=${p}`} />
+			</div>
+
+			<div class="col-md-3">
+				<div class="sidebar">
+					<p>Popular Tags</p>
+					<div class="tag-list">
+						{#each data.tags as tag}
+							<a href="/?tag={tag}" class="tag-default tag-pill">{tag}</a>
+						{/each}
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
