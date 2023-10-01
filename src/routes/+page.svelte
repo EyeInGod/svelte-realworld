@@ -35,6 +35,25 @@
 								Global Feed
 							</a>
 						</li>
+
+						{#if data.user}
+							<li class="nav-item">
+								<a href="/?tab=feed" class="nav-link" class:active={tab === 'feed'}>Your Feed</a>
+							</li>
+						{:else}
+							<li class="nav-item">
+								<a href="/login" class="nav-link">Sign in to see your Feed</a>
+							</li>
+						{/if}
+
+						{#if tag}
+							<li class="nav-item">
+								<a href="/?tag={tag}" class="nav-link active">
+									<i class="ion-pound" />
+									{tag}
+								</a>
+							</li>
+						{/if}
 					</ul>
 				</div>
 				
